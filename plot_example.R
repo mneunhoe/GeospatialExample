@@ -6,7 +6,7 @@
 
 library(rgdal)
 
-MAKE_PAPER <- FALSE # If set to true the plot will be saved as .pdf.
+MAKE_PAPER <- FALSE # If set to TRUE the plot will be saved as .pdf.
 
 # Load the Community Shapefiles. The file is from gadm.org
 
@@ -50,7 +50,7 @@ myColours[trt_map] <- "#46962b"
 myColours[con_map] <- "#ffd500"
 
 if ( MAKE_PDF ) {
-  pdf("graphs/map_trt_con.pdf",width=9, height=8)
+  pdf("map_trt_con.pdf",width=9, height=8)
 }
 
 # Set graph parameters as you like.
