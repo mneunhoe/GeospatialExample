@@ -99,7 +99,7 @@ continous_value <- rnorm(100, 2, 2)
 
 # Set up Color Palette (from, to)
 
-rbPal <- colorRampPalette(c('lightgrey','black'))
+rbPal <- colorRampPalette(c('green','red'))
 
 # Make Color vector for the sample communities
 
@@ -123,3 +123,5 @@ plot(bw,col = myColours, border = 'gray80')
 
 # Add a legend with color palette
 legend("topleft",title="Arbitraty",legend=seq(min(continous_value), max(continous_value), length.out = 20),col =rbPal(20),pch=20)
+
+
