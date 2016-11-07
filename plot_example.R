@@ -82,3 +82,44 @@ legend("bottom", inset=c(0,-0.1), legend=c("Treatment","Control"), fill=c("#4696
 if ( MAKE_PDF ) {
   dev.off()
 }
+
+###########################################################################################################
+
+###########################################################################################################
+# Example with continuous Data and random Communities
+###########################################################################################################
+
+# Draw some Communities based on CCA_4
+
+gemeinden <- sample(bw@data$CCA_4,100)
+
+# Make some random continuous indicator variable
+
+continous_value <- rnorm(100, 2, 2)
+
+# Set up Color Palette (from, to)
+
+rbPal <- colorRampPalette(c('lightgrey','black'))
+
+# Make Color vector for the sample communities
+
+Col <- rbPal(20)[as.numeric(cut(continous_value,breaks = 20))]
+
+# Add colors to map plot
+
+myColours <- rep("white", length(bw@data$NAME_4))
+myColours[bw@data$CCA_4%in%gemeinden] <- Col
+
+# Plot it.
+
+par(
+  family = "serif",
+  oma = c(1,1,1,1),
+  mar = c(5,5,5,5),
+  adj = 0.5
+)
+
+plot(bw,col = myColours, border = 'gray80')
+
+# Add a legend with color palette
+legend("topleft",title="Arbitraty",legend=seq(min(continous_value), max(continous_value), length.out = 20),col =rbPal(20),pch=20)
