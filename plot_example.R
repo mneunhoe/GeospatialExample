@@ -8,6 +8,11 @@ library(rgdal)
 
 MAKE_PAPER <- FALSE # If set to TRUE the plot will be saved as .pdf.
 
+pre_data <- read.csv2("data/pre_data.csv", stringsAsFactors = F)
+
+# Select the communities with <= 1500 eligible voters in 2011 and make sample_data and rest_data
+sample_data <- pre_data[which(pre_data$eligible_voters_2011<=1500),]
+
 # Load the Community Shapefiles. The file is from gadm.org
 
 gadm <- readRDS("data/DEU_adm4.rds")
@@ -29,6 +34,7 @@ bw@data$NAME_4[bw@data$NAME_4=="Langenburg"] <- "Langenburg, Stadt"
 # Set baseline color (here white).
 
 myColours <- rep("white", length(bw@data$NAME_4))
+myColours[bw@data$NAME_4%in%sample_data$community_name] <- gray.colors(3)[1]
 myColours[64] <- "white" #pick right Altdorf
 myColours[116] <- "white" #pick right Altheim
 myColours[370] <- "white" #pick right Dürnau
@@ -40,6 +46,7 @@ plot_data <- read.csv2("data/plot_data.csv",stringsAsFactors = F)
 
 # Create Selectors for Treatment and Control.
 
+sample <- myColours==gray.colors(3)[1]
 trt_map <- which(sample)[bw@data$NAME_4[sample]%in%as.character(plot_data$community_name)[plot_data$treatment_indicator_Z==1]]
 con_map <- which(sample)[bw@data$NAME_4[sample]%in%as.character(plot_data$community_name)[plot_data$treatment_indicator_Z==0]]
 
